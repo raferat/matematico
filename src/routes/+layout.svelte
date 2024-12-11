@@ -1,29 +1,29 @@
 <script lang="ts">
     import { base } from '$app/paths';
     import { page } from '$app/stores';
-    import { expoInOut } from 'svelte/easing';
+    import { quadInOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
+    import { fade, fly } from 'svelte/transition';
 
     let { children } = $props();
 
     let position = new Tween(-290, {
         duration: 250,
-        easing: expoInOut,
+        easing: quadInOut,
     });
 
-    let value = $derived($page.url.pathname);
-
-    
-
+    let pathname = $derived($page.url.pathname);
     $effect(()=>{
-        if (value === `${base}/`) {
+        if (pathname === `${base}/`) {
             position.set(-290);
-        } else if (value === `${base}/generator/`) {
+        } else if (pathname === `${base}/generator/`) {
             position.set(0);
         } else {
             position.set(290);
         }
     });
+
+    
 </script>
 
 
@@ -32,18 +32,33 @@
         <nav>
             <ul>
                 <li><a href="{base}/">Matematico</a></li>
-                <li><a href="{base}/generator/">Generator</a></li>
+                <li><a href="{base}/generator/">Generátor</a></li>
                 <li><a href="{base}/game/">Hra</a></li>
             </ul>
-            
             <div id="marker" style="left: calc(50% + {position.current}px)">
-                <div></div>
+                <svg
+                   width="19.843769mm"
+                   height="2.2695999mm"
+                   viewBox="0 0 19.843769 2.2695999"
+                   version="1.1"
+                   id="svg5"
+                   xmlns="http://www.w3.org/2000/svg">
+                  <defs
+                     id="defs2" />
+                  <g
+                     id="layer1"
+                     transform="translate(-52.958722,-68.762487)">
+                    <path
+                       id="path238"
+                       style="fill:#89dceb;fill-opacity:1;stroke:#89dceb;stroke-width:0.0678287;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+                       d="m 72.80224,70.997602 c -5.502816,0.0409 -5.822744,-2.134625 -9.921011,-2.201202 h -0.0013 c -4.098214,0.06716 -4.418126,2.241098 -9.920959,2.201202 z" />
+                  </g>
+                </svg>
             </div>
         </nav>
     </header>
-    <div>
-        {@render children()}
-    </div>
+
+    {@render children()}
 </div>
 
 <style lang="scss">
@@ -79,12 +94,8 @@
         transform: translateX(-50%);
         top: calc(73px - 0.9em);
 
-        div {
-            
-            height: 0;
-            border-left: 0.55em solid transparent;
-	        border-right: 0.55em solid transparent;
-	        border-bottom: 0.9em solid #89dceb;
+        svg {
+            height: 8px;
         }
     }
 

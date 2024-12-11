@@ -31,7 +31,7 @@
     }
 
     const tween = new Tween(0, {easing: sineInOut, duration: timeout*1000});
-    let transitionHandler = $state({});
+    
 
     function startGame() {
         const seq = generateSequence();
@@ -50,7 +50,6 @@
                 tween.set(100.1);
             });
 
-            transitionHandler = {};
         }, timeout * 1000);
 
         
@@ -68,8 +67,8 @@
 
 <div class="wrapper">
     
-    {#key transitionHandler}
-        <h3 in:fade={{duration:200}}>{currentNumber}</h3>    
+    {#key currentNumber}
+        <h3 in:fade={{duration:200}}>{currentNumber}</h3>
     {/key}
     
     
