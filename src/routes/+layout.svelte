@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from '$app/paths';
     import { page } from '$app/stores';
     import { expoInOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
@@ -12,10 +13,12 @@
 
     let value = $derived($page.url.pathname);
 
+    
+
     $effect(()=>{
-        if (value === "/") {
+        if (value === `${base}/`) {
             position.set(-290);
-        } else if (value === "/generator/") {
+        } else if (value === `${base}/generator/`) {
             position.set(0);
         } else {
             position.set(290);
@@ -28,9 +31,9 @@
     <header>
         <nav>
             <ul>
-                <li><a href="/">Matematico</a></li>
-                <li><a href="/generator/">Generator</a></li>
-                <li><a href="/game/">Hra</a></li>
+                <li><a href="{base}/">Matematico</a></li>
+                <li><a href="{base}/generator/">Generator</a></li>
+                <li><a href="{base}/game/">Hra</a></li>
             </ul>
             
             <div id="marker" style="left: calc(50% + {position.current}px)">
