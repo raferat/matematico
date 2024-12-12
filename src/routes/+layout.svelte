@@ -109,7 +109,9 @@
             padding: 0 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            box-shadow: 2px 2px 2px #89dceb;
+            
+            border: 2px solid #89dceb;
+            border-top: none;
 
             ul {
                 padding: 0;
